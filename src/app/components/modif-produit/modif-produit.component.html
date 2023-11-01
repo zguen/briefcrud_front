@@ -1,0 +1,94 @@
+<div class="container card">
+  <p class="text-center">Modifier le produit {{ produit.nom }}</p>
+  <form [formGroup]="modifForm" (ngSubmit)="submit()">
+    <div class="form-group d-flex flex-column">
+      <label for="nom">Nom : </label>
+      <input id="nom" type="text" formControlName="nom" />
+    </div>
+
+    <div class="form-group d-flex flex-column">
+      <label for="prix">Prix : </label>
+      <input id="prix" type="number" formControlName="prix" />
+    </div>
+
+    <div class="form-group d-flex flex-column">
+      <label for="quantite">Quantité : </label>
+      <input id="quantite" type="number" formControlName="quantite" />
+    </div>
+
+    <div class="form-group d-flex flex-column">
+      <label for="id_categorie">Categorie : </label>
+      <select formControlName="id_categorie">
+        <option *ngFor="let category of categorie" [ngValue]="category.id">
+          {{ category.nom }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-around btn-zone">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#updateModal"
+      >
+        Modifier
+      </button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="updateModal"
+        tabindex="-1"
+        aria-labelledby="updateModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5" id="updateModalLabel">
+                {{ modifForm.value.nom }}
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div *ngFor="let category of categorie">
+                <p *ngIf="modifForm.value.id_categorie === category.id">
+                  Catégorie : {{ category.nom }}
+                </p>
+              </div>
+              <p>Prix : {{ modifForm.value.prix }}€</p>
+              <p>Quantité : {{ modifForm.value.quantite }}</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Fermer
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                routerLink="/produit"
+              >
+                Confirmer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-danger" routerLink="/produit">
+        Annuler
+      </button>
+    </div>
+    <!-- {{modifForm.controls['prix'].valid | json}} -->
+  </form>
+</div>
