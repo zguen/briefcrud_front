@@ -53,11 +53,11 @@ export class ProduitService {
     );
   }
 
-  deleteproduit(productId: number): Observable<Produit> {
+  deleteproduit(produit: Produit): Observable<Produit> {
     // recup le token dans le sessionstorage
     const headers = this.setHeaders();
     return this.http.delete<Produit>(
-      `http://localhost:3000/api/produits/${productId}`,
+      `http://localhost:3000/api/produits/${produit.id}`,
       { headers }
     );
   }

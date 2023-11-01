@@ -14,12 +14,4 @@ export class ListeComponent {
 
   constructor (private produitService: ProduitService) {}
 
-  onSubmit() {
-    this.produitService
-      .deleteproduit(this.produit.id!)
-      .subscribe((response) => {
-        console.log(response);
-        location.reload();
-      });
-  }
 }

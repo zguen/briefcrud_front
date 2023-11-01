@@ -1,1 +1,24 @@
-<p>suppr-produit works!</p>
+<div class="mainContainer" *ngIf="produit">
+    <!-- <div class="miseenpage"> -->
+    <div class="card">
+        <div class=""></div>
+    </div>
+
+    <div>
+        <h2>{{ produit.nom }}</h2>
+    </div>
+
+    <div>
+        <p>Etes-vous sûr de vouloir supprimer ce produit ?</p>
+    </div>
+
+    <div>
+        <button type="submit" id="btnSupprimer" (click)="deleteproduit(produit)" class="btn btn-danger">
+            Oui, supprimer
+        </button>
+        <button class="btnAnnuler" [routerLink]="['/produit']" class="btn btn-primary">
+            Non, annuler
+        </button>
+    </div>
+</div>
+
