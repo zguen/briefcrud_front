@@ -49,15 +49,14 @@ export class ModifProduitComponent {
 
   ngOnInit() {
     if (!sessionStorage.getItem('token')) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
+      console.log(sessionStorage)
     }
 
     const produitIdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
-    console.log(produitIdFromRoute);
 
     this.categorieService.getCategories().subscribe((categorie) => {
       this.categorie = categorie;
-      console.log(this.categorie);
     });
 
     this.produitService

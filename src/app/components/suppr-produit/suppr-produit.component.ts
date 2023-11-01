@@ -18,10 +18,11 @@ export class SupprProduitComponent {
   ) {}
 
   ngOnInit() {
-    //reoriente quand pas admine vers 404
-    if (sessionStorage.getItem('profilUtilisateur') != 'true') {
-      this.router.navigate(['/**']);
-    }
+    
+   if (!sessionStorage.getItem('token')) {
+     this.router.navigate(['/']);
+     console.log(sessionStorage);
+   }
 
     const routeParam = this.route.snapshot.paramMap;
     const produitIdFromRoute = Number(routeParam.get('id'));

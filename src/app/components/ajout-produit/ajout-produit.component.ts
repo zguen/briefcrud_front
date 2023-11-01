@@ -38,6 +38,11 @@ export class AjoutProduitComponent {
   }
 
   ngOnInit(): void {
+
+    if (!sessionStorage.getItem('token')) {
+      this.router.navigate(['/']);
+      console.log(sessionStorage);
+    }
     this.categorieService.getCategories().subscribe((categories) => {
       this.categorie = categories;
     });
