@@ -5,13 +5,15 @@ import { AjoutProduitComponent } from './components/ajout-produit/ajout-produit.
 import { ModifProduitComponent } from './components/modif-produit/modif-produit.component';
 import { ConnexionComponent } from './components/connexion/connexion.component';
 import { SupprProduitComponent } from './components/suppr-produit/suppr-produit.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: ConnexionComponent },
   { path: 'produit', component: ProduitComponent },
   { path: 'produit/ajouter', component: AjoutProduitComponent },
   { path: 'produit/modifier/:id', component: ModifProduitComponent },
-  { path :'produit/supprimer/:id', component: SupprProduitComponent}
+  { path: 'produit/supprimer/:id', component: SupprProduitComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

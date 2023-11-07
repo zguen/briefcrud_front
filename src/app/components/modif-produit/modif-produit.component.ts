@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Modal } from 'bootstrap';
 import { Categorie } from 'src/app/models/categorie';
 import { Produit } from 'src/app/models/produit';
 import { CategorieService } from 'src/app/services/categorie.service';
@@ -34,23 +35,17 @@ export class ModifProduitComponent {
     private formBuilder: FormBuilder
   ) {
     this.modifForm = this.formBuilder.group({
-     nom: [this.produit.nom, Validators.required],
+      nom: [this.produit.nom, Validators.required],
       id_categorie: [this.produit.id_categorie, Validators.required],
-      prix: [
-        this.produit.prix,
-        [Validators.required],
-      ],
-      quantite: [
-        this.produit.quantite,
-        [Validators.required],
-      ],
+      prix: [this.produit.prix, [Validators.required]],
+      quantite: [this.produit.quantite, [Validators.required]],
     });
   }
 
   ngOnInit() {
     if (!sessionStorage.getItem('token')) {
       this.router.navigate(['/']);
-      console.log(sessionStorage)
+      console.log(sessionStorage);
     }
 
     const produitIdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
@@ -82,12 +77,18 @@ export class ModifProduitComponent {
         .updateproduit(this.produit.id!, this.modifForm.value)
         .subscribe({
           next: (response) => {
-            this.router.navigate(['home']);
+            this.router.navigate(['produit']);
           },
           error: (error) => {
             console.log(error);
           },
         });
     }
+    // Fermer la modale manuellement
+    const createModalElement = document.getElementById(
+      'createModal'
+    ) as HTMLElement;
+    const createModal = new Modal(createModalElement);
+    createModal.hide(); // Utilisez hide() pour fermer la modale
   }
 }

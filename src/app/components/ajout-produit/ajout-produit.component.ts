@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Categorie } from 'src/app/models/categorie';
@@ -26,10 +26,7 @@ export class AjoutProduitComponent {
       nom: ['', Validators.required],
       id_categorie: ['', Validators.required],
       prix: ['', [Validators.required]],
-      quantite: [
-        '',
-        [Validators.required],
-      ],
+      quantite: ['', [Validators.required]],
     });
   }
 
@@ -38,7 +35,6 @@ export class AjoutProduitComponent {
   }
 
   ngOnInit(): void {
-
     if (!sessionStorage.getItem('token')) {
       this.router.navigate(['/']);
       console.log(sessionStorage);
@@ -50,19 +46,19 @@ export class AjoutProduitComponent {
 
   submit() {
     // Envoi du formulaire de création
-
     const nouveauProduit: Produit = this.createProduit.value; // On récupère les données du formulaire
     nouveauProduit.id_categorie = Number(nouveauProduit.id_categorie); // On convertit l'id de la catégorie en nombre
     console.log(nouveauProduit);
 
     this.produitService.createproduit(nouveauProduit).subscribe(() => {
       console.log('mise à jour effectuée');
-      const submissionModalElement = document.getElementById(
-        'submissionModal'
-      ) as HTMLElement;
-      const submissionModal = new Modal(submissionModalElement);
-      submissionModal.show();
       this.createProduit.reset(); // Reset le formulaire si nécessaire
+
+      // Fermer la modale manuellement
+      const createModalElement = document.getElementById('createModal') as HTMLElement;
+      const createModal = new Modal(createModalElement);
+      createModal.hide(); // Utilisez hide() pour fermer la modale
     });
+  }    
+  
   }
-}
